@@ -1,98 +1,107 @@
 import React, { useState } from 'react';
 import { useCart } from '../CartContext';
 import { Link } from 'react-router-dom';
+import { ShoppingBag } from 'lucide-react';
 
 export const products = [
-  { 
-    id: 1, 
-    name: 'Margarita', 
-    price: 59.99, 
+  {
+    id: 1,
+    name: 'Body Margarita',
+    price: 59.99,
     colors: ['white', 'black'],
     images: {
       white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: '/api/placeholder/800/800'
+      black: 'https://i.imgur.com/KTqWMDs.jpeg',
     },
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
   },
-  { 
-    id: 2, 
-    name: 'Ana', 
-    price: 64.99, 
+  {
+    id: 2,
+    name: 'Body Ana',
+    price: 64.99,
     colors: ['white', 'black'],
     images: {
       white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: '/api/placeholder/800/800'
+      black: 'https://i.imgur.com/KTqWMDs.jpeg',
     },
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
   },
-  { 
-    id: 3, 
-    name: 'Julieta', 
-    price: 54.99, 
+  {
+    id: 3,
+    name: 'Body Julieta',
+    price: 54.99,
     colors: ['white', 'black'],
     images: {
       white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: '/api/placeholder/800/800'
+      black: 'https://i.imgur.com/KTqWMDs.jpeg',
     },
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
   },
-  { 
-    id: 4, 
-    name: 'Mango', 
-    price: 49.99, 
+  {
+    id: 4,
+    name: 'Body Mango',
+    price: 49.99,
     colors: ['white', 'black'],
     images: {
       white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: '/api/placeholder/800/800'
+      black: 'https://i.imgur.com/KTqWMDs.jpeg',
     },
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
   },
-  { 
-    id: 5, 
-    name: 'Rosa', 
-    price: 69.99, 
+  {
+    id: 5,
+    name: 'Body Rosa',
+    price: 69.99,
     colors: ['white', 'black'],
     images: {
       white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: '/api/placeholder/800/800'
+      black: 'https://i.imgur.com/KTqWMDs.jpeg',
     },
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
   },
-  { 
-    id: 6, 
-    name: 'Victoria', 
-    price: 74.99, 
+  {
+    id: 6,
+    name: 'Body Victoria',
+    price: 74.99,
     colors: ['white', 'black'],
     images: {
       white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: '/api/placeholder/800/800'
+      black: 'https://i.imgur.com/KTqWMDs.jpeg',
     },
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
   },
-  { 
-    id: 7, 
-    name: 'Ale', 
-    price: 59.99, 
-    colors: ['black'],
+  {
+    id: 7,
+    name: 'Body Ale',
+    price: 59.99,
+    colors: ['white', 'black'],
     images: {
-      black: 'https://i.imgur.com/yWJ3E9X.jpeg'
+      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
+      black: 'https://i.imgur.com/KTqWMDs.jpeg',
     },
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
-  }
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
+  },
 ];
 
 const ProductGrid = ({ searchTerm }) => {
-  const { addToCart } = useCart();
-
-  const filteredProducts = products.filter(product =>
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="container mx-auto py-16">
-      <h2 className="text-3xl font-bold mb-8 text-center">Our Products</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {filteredProducts.map(product => (
+    <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl font-bold mb-8 text-center">
+        Nuestros Productos
+      </h2>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
+        {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
@@ -108,42 +117,46 @@ const ProductCard = ({ product }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden group relative">
       <div className="relative overflow-hidden">
         <Link to={`/product/${product.id}`}>
-          <img 
-            src={product.images[selectedColor]} 
-            alt={product.name} 
-            className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+          <img
+            src={product.images[selectedColor]}
+            alt={product.name}
+            className="w-full h-48 sm:h-64 object-cover transition-transform duration-300 group-hover:scale-110"
           />
         </Link>
-        <div className="absolute bottom-0 left-0 right-0">
-          <button
-            onClick={() => addToCart({ ...product, selectedColor })}
-            className="w-full bg-black bg-opacity-75 text-white py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          >
-            Add to Cart
-          </button>
-        </div>
+        <button
+          onClick={() => addToCart({ ...product, selectedColor })}
+          className="absolute bottom-2 left-2 bg-black bg-opacity-75 text-white p-2 rounded-full hover:bg-opacity-100 transition-opacity duration-300"
+          aria-label="Add to Cart"
+        >
+          <ShoppingBag size={20} />
+        </button>
       </div>
 
       <div className="p-4">
         <Link to={`/product/${product.id}`} className="hover:underline">
-          <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+          <h3 className="text-lg sm:text-xl font-semibold mb-2">
+            {product.name}
+          </h3>
         </Link>
         <p className="text-gray-600 mb-2">${product.price.toFixed(2)}</p>
-        
-        {/* Color Selection */}
+
         <div className="mt-2">
           <p className="text-sm text-gray-600 mb-1">Color</p>
           <div className="flex gap-2">
-            {product.colors.map(color => (
+            {product.colors.map((color) => (
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
                 className={`w-6 h-6 rounded-full border-2 ${
-                  selectedColor === color ? 'border-blue-500' : 'border-gray-300'
-                }`}
+                  selectedColor === color
+                    ? 'border-yellow-500' // Borde dorado
+                    : 'border-gray-300'
+                } ${
+                  color === 'white' && selectedColor === color ? 'border-4' : ''
+                }`} // Borde más grueso para blanco
                 style={{
                   backgroundColor: color,
-                  border: color === 'white' ? '1px solid #e5e7eb' : undefined
+                  border: color === 'white' ? '1px solid #e5e7eb' : undefined,
                 }}
                 aria-label={`Select ${color} color`}
               />

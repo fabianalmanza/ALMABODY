@@ -9,13 +9,14 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => 
-        item.id === product.id && item.selectedColor === product.selectedColor
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find(
+        (item) =>
+          item.id === product.id && item.selectedColor === product.selectedColor
       );
       if (existingItem) {
-        return prevItems.map(item =>
-          (item.id === product.id && item.selectedColor === product.selectedColor)
+        return prevItems.map((item) =>
+          item.id === product.id && item.selectedColor === product.selectedColor
             ? { ...item, quantity: (item.quantity || 1) + 1 }
             : item
         );
@@ -25,20 +26,24 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (productId, selectedColor) => {
-    setCartItems(prevItems => 
-      prevItems.filter(item => item.id !== productId || item.selectedColor !== selectedColor)
+    setCartItems((prevItems) =>
+      prevItems.filter(
+        (item) => item.id !== productId || item.selectedColor !== selectedColor
+      )
     );
   };
 
   const updateQuantity = (productId, selectedColor, quantity) => {
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === productId && item.selectedColor === selectedColor
-          ? quantity > 0
-            ? { ...item, quantity }
-            : null
-          : item
-      ).filter(Boolean)
+    setCartItems((prevItems) =>
+      prevItems
+        .map((item) =>
+          item.id === productId && item.selectedColor === selectedColor
+            ? quantity > 0
+              ? { ...item, quantity }
+              : null
+            : item
+        )
+        .filter(Boolean)
     );
   };
 
@@ -46,18 +51,23 @@ export const CartProvider = ({ children }) => {
     setIsCartOpen(!isCartOpen);
   };
 
-  const cartItemCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const cartItemCount = cartItems.reduce(
+    (sum, item) => sum + (item.quantity || 1),
+    0
+  );
 
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      isCartOpen,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      toggleCart,
-      cartItemCount
-    }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        isCartOpen,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        toggleCart,
+        cartItemCount,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

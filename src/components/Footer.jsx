@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -13,26 +14,38 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link to="/" className="hover:text-gray-300">Inicio</Link></li>
-              <li><Link to="/catalog" className="hover:text-gray-300">Catálogo</Link></li>
-              <li><a href="#" className="hover:text-gray-300">Products</a></li>
-              <li><a href="#" className="hover:text-gray-300">About Us</a></li>
-              <li><a href="#" className="hover:text-gray-300">Contact</a></li>
+              <li>
+                <Link to="/" className="hover:text-gray-300">
+                  Inicio
+                </Link>
+              </li>
+              <li>
+                <Link to="/catalog" className="hover:text-gray-300">
+                  Catálogo
+                </Link>
+              </li>
+              <li>
+                <Link to="/productos" className="hover:text-gray-300">
+                  Productos
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="text-xl font-bold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-gray-300">Facebook</a>
-              <a href="#" className="hover:text-gray-300">Instagram</a>
-              <a href="#" className="hover:text-gray-300">Twitter</a>
+              <a
+                href="https://www.instagram.com/alma_bodys"
+                className="hover:text-gray-300"
+              >
+                <Instagram />
+              </a>
             </div>
           </div>
         </div>
         <div className="mt-8 text-center">
           <p>&copy; 2024 ALMABODYS. All rights reserved.</p>
-          <p>&copy; Fabi Amanza</p>
-
+          <p>&copy; Pagina Hecha por Fabi Amanza</p>
         </div>
       </div>
     </footer>
