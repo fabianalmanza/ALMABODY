@@ -30,7 +30,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 text-center">
-          <p>&copy; 2023 ALMA. All rights reserved.</p>
+          <p>&copy; 2024 ALMABODYS. All rights reserved.</p>
+          <p>&copy; Fabi Amanza</p>
+
         </div>
       </div>
     </footer>

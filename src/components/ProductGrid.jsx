@@ -9,7 +9,7 @@ export const products = [
     price: 59.99, 
     colors: ['white', 'black'],
     images: {
-      white: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
       black: '/api/placeholder/800/800'
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
@@ -20,7 +20,7 @@ export const products = [
     price: 64.99, 
     colors: ['white', 'black'],
     images: {
-      white: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
       black: '/api/placeholder/800/800'
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
@@ -31,7 +31,7 @@ export const products = [
     price: 54.99, 
     colors: ['white', 'black'],
     images: {
-      white: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
       black: '/api/placeholder/800/800'
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
@@ -42,7 +42,7 @@ export const products = [
     price: 49.99, 
     colors: ['white', 'black'],
     images: {
-      white: 'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
       black: '/api/placeholder/800/800'
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
@@ -53,7 +53,7 @@ export const products = [
     price: 69.99, 
     colors: ['white', 'black'],
     images: {
-      white: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
       black: '/api/placeholder/800/800'
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
@@ -64,7 +64,7 @@ export const products = [
     price: 74.99, 
     colors: ['white', 'black'],
     images: {
-      white: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
       black: '/api/placeholder/800/800'
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
@@ -75,7 +75,7 @@ export const products = [
     price: 59.99, 
     colors: ['black'],
     images: {
-      black: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+      black: 'https://i.imgur.com/yWJ3E9X.jpeg'
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.' 
   }

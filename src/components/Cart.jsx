@@ -11,7 +11,7 @@ const Cart = () => {
       .map(item => `${item.name} (${item.selectedColor}) (x${item.quantity || 1}) - $${(item.price * (item.quantity || 1)).toFixed(2)}`)
       .join('\n')}\n\nTotal: $${total.toFixed(2)}`;
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/573023035359/?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/573176599949/?text=${encodedMessage}`, '_blank');
   };
 
   if (!isCartOpen) return null;

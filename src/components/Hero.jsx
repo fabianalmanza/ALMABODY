@@ -4,9 +4,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const images = [
-    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
+    "https://i.imgur.com/CZ6JUrU.jpeg",
+    "https://instagram.fbga2-1.fna.fbcdn.net/v/t39.30808-6/438101382_18017000003254416_7729192953803214936_n.jpg?stp=dst-jpg_e35_p720x720&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE4MDAuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fbga2-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=DfJw6OFLa-sQ7kNvgEid8O0&_nc_gid=b599674214bf4babb3a9a7b405d7fc9b&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzM1OTI0NzYxNjU4NjcxMTczMw%3D%3D.3-ccb7-5&oh=00_AYAXyDmKPxijWmAmnen-6bteSBEH8CfOneGPEwFMadjOMw&oe=670919F4&_nc_sid=22de04",
+    "https://instagram.fbga2-1.fna.fbcdn.net/v/t39.30808-6/441930759_18018297365254416_6555788677637497815_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE3OTkuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fbga2-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=pLIkigXWCTEQ7kNvgEp2A-h&_nc_gid=b599674214bf4babb3a9a7b405d7fc9b&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzM2ODA5MjAzMTg4MjU2NTg4Mw%3D%3D.3-ccb7-5&oh=00_AYBA_1fA61CF5CedZNxyV3u8d3jdvoW0TFeZp469oUXIVg&oe=6709004C&_nc_sid=22de04"
   ];
 
   const nextImage = () => {
@@ -25,13 +25,7 @@ const Hero = () => {
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div className="text-center text-white">
-          <h1 className="text-5xl font-bold mb-4">Closet Cápsula</h1>
-          <p className="text-xl mb-8">Discover your perfect style</p>
-          <button className="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-200 transition duration-300">
-            Shop Now
-          </button>
-        </div>
+     
       </div>
       <button
         onClick={prevImage}
