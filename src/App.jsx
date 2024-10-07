@@ -5,6 +5,7 @@ import Cart from './components/Cart';
 import Footer from './components/Footer';
 import AppRoutes from './routes';
 import { CartProvider } from './CartContext';
+import InstagramFeed from './components/InstagramFeed';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +21,7 @@ const App = () => {
           <Header onSearch={handleSearch} />
           <div className="pt-16">
             <AppRoutes searchTerm={searchTerm} />
+            <InstagramFeed />
             <Cart />
             <Footer />
           </div>
