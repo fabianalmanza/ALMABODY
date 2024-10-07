@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
+import { toast } from 'react-toastify'; // Importa toast
 
 const CartContext = createContext();
 
@@ -15,12 +16,14 @@ export const CartProvider = ({ children }) => {
           item.id === product.id && item.selectedColor === product.selectedColor
       );
       if (existingItem) {
+        toast.success(`Cantidad aumentada para ${product.name}`); // Muestra la alerta
         return prevItems.map((item) =>
           item.id === product.id && item.selectedColor === product.selectedColor
             ? { ...item, quantity: (item.quantity || 1) + 1 }
             : item
         );
       }
+      toast.success(`${product.name} añadido al carrito`); // Muestra la alerta
       return [...prevItems, { ...product, quantity: 1 }];
     });
   };

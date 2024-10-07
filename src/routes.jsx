@@ -1,3 +1,4 @@
+// src/routes.js
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Hero from './components/Hero';
@@ -5,6 +6,7 @@ import ProductGrid from './components/ProductGrid';
 import Catalog from './components/Catalog';
 import ProductDetail from './components/ProductDetail';
 import Productos from './components/Productos';
+import InstagramFeed from './components/InstagramFeed'; // Asegúrate de importar el componente
 
 const AppRoutes = ({ addToCart, searchTerm }) => {
   return (
@@ -15,6 +17,8 @@ const AppRoutes = ({ addToCart, searchTerm }) => {
           <>
             <Hero />
             <ProductGrid addToCart={addToCart} searchTerm={searchTerm} />
+            <InstagramFeed />{' '}
+            {/* Aquí está el InstagramFeed solo para la ruta raíz */}
           </>
         }
       />

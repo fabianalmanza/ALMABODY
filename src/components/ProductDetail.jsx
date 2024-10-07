@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import { products } from './ProductGrid';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Plus, Minus } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -11,7 +11,8 @@ const ProductDetail = () => {
   const product = products.find((p) => p.id === productId);
   const [selectedColor, setSelectedColor] = useState(product?.colors[0]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slidesToShow = 2; // Mostramos 2 productos
+  const [quantity, setQuantity] = useState(1);
+  const slidesToShow = 2;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,6 +38,19 @@ const ProductDetail = () => {
         (prev - 1 + Math.ceil(relatedProducts.length / slidesToShow)) %
         Math.ceil(relatedProducts.length / slidesToShow)
     );
+  };
+
+  const handleIncreaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    setQuantity((prev) => Math.max(1, prev - 1));
+  };
+
+  const handleAddToCart = () => {
+    addToCart({ ...product, selectedColor, quantity });
+    setQuantity(1); // Restablecer la cantidad a 1
   };
 
   return (
@@ -80,8 +94,32 @@ const ProductDetail = () => {
 
           <p className="text-gray-700 mb-4">{product.description}</p>
 
+          {/* Quantity Selector */}
+          <div className="flex items-center mb-4">
+            <p className="text-sm text-gray-600 mr-4">Quantity</p>
+            <div className="flex items-center border rounded-lg">
+              <button
+                onClick={handleDecreaseQuantity}
+                className="p-2 hover:bg-gray-100 rounded-l-lg"
+                aria-label="Decrease quantity"
+              >
+                <Minus size={16} />
+              </button>
+              <span className="px-4 py-2 text-center min-w-[3rem]">
+                {quantity}
+              </span>
+              <button
+                onClick={handleIncreaseQuantity}
+                className="p-2 hover:bg-gray-100 rounded-r-lg"
+                aria-label="Increase quantity"
+              >
+                <Plus size={16} />
+              </button>
+            </div>
+          </div>
+
           <button
-            onClick={() => addToCart({ ...product, selectedColor })}
+            onClick={handleAddToCart}
             className="bg-black text-white py-2 px-4 flex items-center rounded-lg hover:bg-gray-800"
           >
             <ShoppingBag className="mr-2" />
@@ -90,15 +128,13 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Carrusel de productos relacionados */}
+      {/* Related Products Carousel */}
       <div className="mt-16">
         <h3 className="text-2xl font-bold mb-4 text-center">
-          Productos Relacionados
+          Related Products
         </h3>
 
         <div className="max-w-4xl mx-auto relative">
-          {' '}
-          {/* Contenedor para centrar y limitar el ancho */}
           <button
             onClick={handlePrev}
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded"

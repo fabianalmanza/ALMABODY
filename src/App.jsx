@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Header from './components/Header';
 import Cart from './components/Cart';
 import Footer from './components/Footer';
 import AppRoutes from './routes';
 import { CartProvider } from './CartContext';
-import InstagramFeed from './components/InstagramFeed';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,7 +23,6 @@ const App = () => {
           <Header onSearch={handleSearch} />
           <div className="pt-16">
             <AppRoutes searchTerm={searchTerm} />
-            <InstagramFeed />
             <Cart />
             <Footer />
           </div>
@@ -43,6 +44,13 @@ const App = () => {
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
           </button>
+          <ToastContainer
+            className="top-16" // Ajusta la posición
+            toastClassName="bg-black-300 text-black rounded-md p-2 shadow-md mb-2 w-50 h-30 text-sm" // Estilo y tamaño de las alertas
+            bodyClassName="text-xs" // Tamaño de texto pequeño
+            progressClassName="bg-blue-400" // Estilo de la barra de progreso
+            autoClose={700} // Duración de la alerta en milisegundos (1 segundo)
+          />
         </div>
       </CartProvider>
     </Router>

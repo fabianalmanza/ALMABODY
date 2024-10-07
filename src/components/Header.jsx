@@ -104,6 +104,13 @@ const Header = ({ onSearch }) => {
               >
                 Catálogo
               </Link>
+              <Link
+                to="/productos"
+                className="block hover:text-gray-300"
+                onClick={handleMenuItemClick}
+              >
+                Productos
+              </Link>
             </div>
           </div>
 
