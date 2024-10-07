@@ -8,10 +8,10 @@ const Cart = () => {
 
   const sendToWhatsApp = () => {
     const message = `Hello! I'd like to order the following items:\n\n${cartItems
-      .map(item => `${item.name} (x${item.quantity || 1}) - $${(item.price * (item.quantity || 1)).toFixed(2)}`)
+      .map(item => `${item.name} (${item.selectedColor}) (x${item.quantity || 1}) - $${(item.price * (item.quantity || 1)).toFixed(2)}`)
       .join('\n')}\n\nTotal: $${total.toFixed(2)}`;
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/573023035359/?text=${encodedMessage}`, '_blank');
   };
 
   if (!isCartOpen) return null;
@@ -31,20 +31,28 @@ const Cart = () => {
           ) : (
             <>
               {cartItems.map(item => (
-                <div key={item.id} className="flex items-center justify-between mb-4">
+                <div key={`${item.id}-${item.selectedColor}`} className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="font-semibold">{item.name}</h3>
+                    <p className="text-sm text-gray-500 capitalize">{item.selectedColor}</p>
                     <p>${item.price.toFixed(2)}</p>
                   </div>
                   <div className="flex items-center">
-                    <button onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1)} className="p-1">
+                    <button 
+                      onClick={() => updateQuantity(item.id, item.selectedColor, (item.quantity || 1) - 1)} 
+                      className="p-1"
+                      disabled={(item.quantity || 1) <= 1} // Desactiva si la cantidad es 1
+                    >
                       <Minus size={16} />
                     </button>
                     <span className="mx-2">{item.quantity || 1}</span>
-                    <button onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)} className="p-1">
+                    <button 
+                      onClick={() => updateQuantity(item.id, item.selectedColor, (item.quantity || 1) + 1)} 
+                      className="p-1"
+                    >
                       <Plus size={16} />
                     </button>
-                    <button onClick={() => removeFromCart(item.id)} className="ml-4 text-red-500">
+                    <button onClick={() => removeFromCart(item.id, item.selectedColor)} className="ml-4 text-red-500">
                       Remove
                     </button>
                   </div>
