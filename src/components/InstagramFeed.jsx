@@ -22,7 +22,7 @@ const InstagramFeed = () => {
         },
         {
           id: 3,
-          imageUrl: 'https://i.imgur.com/yWJ3E9X.jpeg',
+          imageUrl: 'https://i.imgur.com/CZ6JUrU.jpeg',
           caption: 'Comfort meets style',
         },
         {
@@ -32,7 +32,7 @@ const InstagramFeed = () => {
         },
         {
           id: 5,
-          imageUrl: 'https://i.imgur.com/yWJ3E9X.jpeg',
+          imageUrl: 'https://i.imgur.com/KTqWMDs.jpeg',
           caption: 'Designed for you',
         },
         {
