@@ -147,16 +147,13 @@ const ProductCard = ({ product }) => {
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full border-2 ${
-                  selectedColor === color
-                    ? 'border-yellow-500' // Borde dorado
-                    : 'border-gray-300'
-                } ${
-                  color === 'white' && selectedColor === color ? 'border-4' : ''
-                }`} // Borde más grueso para blanco
+                className={`w-6 h-6 rounded-full border-2 ${selectedColor === color ? 'border-yellow-500' : 'border-gray-300'
+                  }`}
                 style={{
                   backgroundColor: color,
-                  border: color === 'white' ? '1px solid #e5e7eb' : undefined,
+                  border: selectedColor === color
+                    ? '2px solid #EAB308'
+                    : '1px solid #e5e7eb'
                 }}
                 aria-label={`Select ${color} color`}
               />
