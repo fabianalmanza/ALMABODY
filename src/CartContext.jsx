@@ -10,23 +10,23 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find(
-        (item) =>
-          item.id === product.id && item.selectedColor === product.selectedColor
+  setCartItems((prevItems) => {
+    const existingItem = prevItems.find(
+      (item) =>
+        item.id === product.id && item.selectedColor === product.selectedColor
+    );
+    if (existingItem) {
+      toast.success(`Cantidad aumentada para ${product.name}`); // Muestra la alerta
+      return prevItems.map((item) =>
+        item.id === product.id && item.selectedColor === product.selectedColor
+          ? { ...item, quantity: item.quantity + product.quantity } // Aumenta la cantidad seleccionada
+          : item
       );
-      if (existingItem) {
-        toast.success(`Cantidad aumentada para ${product.name}`); // Muestra la alerta
-        return prevItems.map((item) =>
-          item.id === product.id && item.selectedColor === product.selectedColor
-            ? { ...item, quantity: (item.quantity || 1) + 1 }
-            : item
-        );
-      }
-      toast.success(`${product.name} añadido al carrito`); // Muestra la alerta
-      return [...prevItems, { ...product, quantity: 1 }];
-    });
-  };
+    }
+ toast.success(`${product.name} (${product.selectedColor}) añadido al carrito`); // Muestra la alerta
+    return [...prevItems, { ...product }]; // Agrega el producto con la cantidad seleccionada
+  });
+};
 
   const removeFromCart = (productId, selectedColor) => {
     setCartItems((prevItems) =>
