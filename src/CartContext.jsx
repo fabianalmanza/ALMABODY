@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
           : item
       );
     }
-    toast.success(`${product.name} añadido al carrito`); // Muestra la alerta
+toast.success(`${product.name} (${selectedColor}) añadido al carrito`); // Muestra la alerta
     return [...prevItems, { ...product }]; // Agrega el producto con la cantidad seleccionada
   });
 };
