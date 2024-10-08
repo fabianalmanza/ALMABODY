@@ -46,10 +46,10 @@ const App = () => {
           </button>
           <ToastContainer
             className="top-16" // Ajusta la posición
-            toastClassName="bg-black-300 text-black rounded-md p-2 shadow-md mb-2 w-50 h-30 text-sm" // Estilo y tamaño de las alertas
+            toastClassName="bg-white text-black rounded-md p-2 shadow-md mb-2 w-50 h-30 text-sm" // Estilo y tamaño de las alertas
             bodyClassName="text-xs" // Tamaño de texto pequeño
-            progressClassName="bg-blue-400" // Estilo de la barra de progreso
-            autoClose={700} // Duración de la alerta en milisegundos (1 segundo)
+            progressClassName="bg-black" // Estilo de la barra de progreso
+            autoClose={1500} // Duración de la alerta en milisegundos (1 segundo)
           />
         </div>
       </CartProvider>
