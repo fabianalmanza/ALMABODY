@@ -4,11 +4,10 @@ const InstagramFeed = () => {
   const [posts, setPosts] = useState([]);
   const instagramUsername = 'alma_bodys';
   const [currentIndex, setCurrentIndex] = useState(0);
-  const limit = 3; // Número máximo de publicaciones a mostrar
+  const limit = 3;
 
   useEffect(() => {
     const fetchInstagramPosts = async () => {
-      // Usar datos de ejemplo
       const placeholderPosts = [
         {
           id: 1,
@@ -43,19 +42,28 @@ const InstagramFeed = () => {
       ];
       setPosts(placeholderPosts);
     };
-
     fetchInstagramPosts();
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(nextSlide, 5000);
+    return () => clearInterval(intervalId);
+  }, [currentIndex, posts.length]);
+
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % posts.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (posts.length - limit + 1));
   };
 
   const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + posts.length) % posts.length
-    );
+    setCurrentIndex((prevIndex) => {
+      if (prevIndex === 0) {
+        return posts.length - limit;
+      }
+      return prevIndex - 1;
+    });
   };
+
+  if (posts.length === 0) return null;
 
   return (
     <section className="py-16 bg-gray-100">
@@ -63,35 +71,45 @@ const InstagramFeed = () => {
         <h2 className="text-3xl font-bold mb-8 text-center">
           Follow Us on Instagram
         </h2>
-        <div className="relative">
-          <div className="flex overflow-hidden">
-            {posts.slice(currentIndex, currentIndex + limit).map((post) => (
-              <div
-                key={post.id}
-                className="relative w-full transition-transform duration-300 mx-1" // Agregado margen
-              >
-                <img
-                  src={post.imageUrl}
-                  alt={post.caption}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-white text-center p-4">{post.caption}</p>
+        <div className="relative overflow-hidden">
+          <div className="flex">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / limit)}%)`,
+              }}
+            >
+              {posts.map((post, index) => (
+                <div
+                  key={post.id}
+                  className="relative flex-shrink-0 px-2"
+                  style={{ width: `${100 / limit}%` }}
+                >
+                  <img
+                    src={post.imageUrl}
+                    alt={post.caption}
+                    className="w-full h-64 object-cover rounded-lg shadow-lg"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-lg">
+                    <p className="text-white text-center p-4">{post.caption}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full"
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 transition-all duration-300 focus:outline-none z-10"
+            disabled={currentIndex === 0}
           >
-            &lt;
+            ←
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 transition-all duration-300 focus:outline-none z-10"
+            disabled={currentIndex === posts.length - limit}
           >
-            &gt;
+            →
           </button>
         </div>
         <div className="text-center mt-8">

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import { toast, cssTransition } from 'react-toastify'; // Importa toast
+import { toast } from 'react-toastify'; // Importa toast
 
 const CartContext = createContext();
 
@@ -8,10 +8,7 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const bounce = cssTransition({
-    enter: "animate__animated animate__bounceIn",
-    exit: "animate__animated animate__bounceOut"
-  });
+
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
