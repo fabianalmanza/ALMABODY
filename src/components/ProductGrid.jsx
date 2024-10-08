@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../CartContext';
 import { Link } from 'react-router-dom';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Check } from 'lucide-react';
 
 export const products = [
   {
@@ -89,7 +89,6 @@ export const products = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
   },
 ];
-
 const ProductGrid = ({ searchTerm }) => {
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -147,16 +146,19 @@ const ProductCard = ({ product }) => {
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full border-2 ${selectedColor === color ? 'border-yellow-500' : 'border-gray-300'
-                  }`}
+                className="w-6 h-6 rounded-full border border-gray-300 relative flex items-center justify-center"
                 style={{
                   backgroundColor: color,
-                  border: selectedColor === color
-                    ? '2px solid #EAB308'
-                    : '1px solid #e5e7eb'
                 }}
                 aria-label={`Select ${color} color`}
-              />
+              >
+                {selectedColor === color && (
+                  <Check
+                    size={14}
+                    className='text-gray-400'
+                  />
+                )}
+              </button>
             ))}
           </div>
         </div>

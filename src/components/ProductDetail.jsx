@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import { products } from './ProductGrid';
-import { ShoppingBag, Plus, Minus } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Check } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -77,17 +77,19 @@ const ProductDetail = () => {
                 <button
                   key={color}
                   onClick={() => setSelectedColor(color)}
-                  className={`w-8 h-8 rounded-full border-2 ${
-                    selectedColor === color ? 'border-yellow-500' : 'border-gray-300'
-                  }`}
+                  className="w-8 h-8 rounded-full border border-gray-300 relative flex items-center justify-center"
                   style={{
                     backgroundColor: color,
-                    border: selectedColor === color 
-                      ? '2px solid #EAB308' 
-                      : '1px solid #e5e7eb'
                   }}
                   aria-label={`Select ${color} color`}
-                />
+                >
+                  {selectedColor === color && (
+                    <Check
+                      size={16}
+                      className='text-gray-400'
+                    />
+                  )}
+                </button>
               ))}
             </div>
           </div>
@@ -178,17 +180,19 @@ const ProductDetail = () => {
                               e.stopPropagation();
                               setRelatedSelectedColor(color);
                             }}
-                            className={`w-6 h-6 rounded-full border-2 ${
-                              relatedSelectedColor === color ? 'border-yellow-500' : 'border-gray-300'
-                            }`}
+                            className="w-6 h-6 rounded-full border border-gray-300 relative flex items-center justify-center"
                             style={{
                               backgroundColor: color,
-                              border: relatedSelectedColor === color 
-                                ? '2px solid #EAB308' 
-                                : '1px solid #e5e7eb'
                             }}
                             aria-label={`Select ${color} color`}
-                          />
+                          >
+                            {relatedSelectedColor === color && (
+                              <Check
+                                size={14}
+                                className='text-gray-400'
+                              />
+                            )}
+                          </button>
                         ))}
                       </div>
                     </div>
