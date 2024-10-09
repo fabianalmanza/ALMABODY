@@ -1,17 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Purple+Purse&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Purple+Purse&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Importar la fuente personalizada */
+@font-face {
+  font-family: 'AlmaBody';
+  src: url('../assets/almabodys-Regular.ttf') format('truetype'); /* Ajusta la ruta */
+  font-weight: normal;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 400;
+  font-style: normal;
 }
 
 .purple-purse-regular {
-  font-family: "Purple Purse", serif;
+  font-family: 'Purple Purse', serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -23,3 +33,7 @@ body {
   will-change: transform;
 }
 
+/* Usar la fuente personalizada */
+.custom-font {
+  font-family: 'AlmaBody', sans-serif;
+}

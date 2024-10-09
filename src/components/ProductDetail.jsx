@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import { products } from './ProductGrid';
-import { ShoppingBag, Plus, Minus, Check } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Check, Store } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -60,7 +60,7 @@ const ProductDetail = () => {
           <img
             src={product.images[selectedColor]}
             alt={product.name}
-            className="w-full h-64 object-cover rounded-lg"
+            className="w-full h-64 md:h-96  object-cover rounded-lg"
           />
         </div>
 
@@ -98,7 +98,7 @@ const ProductDetail = () => {
 
           {/* Quantity Selector */}
           <div className="flex items-center mb-4">
-            <p className="text-sm text-gray-600 mr-4">Quantity</p>
+            <p className="text-sm text-gray-600 mr-4">Cantidad</p>
             <div className="flex items-center border rounded-lg">
               <button
                 onClick={handleDecreaseQuantity}
@@ -120,13 +120,22 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <button
-            onClick={handleAddToCart}
-            className="bg-black text-white py-2 px-4 flex items-center rounded-lg hover:bg-gray-800"
-          >
-            <ShoppingBag className="mr-2" />
-            Add to Cart
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={handleAddToCart}
+              className="bg-black text-white py-2 px-4 flex items-center rounded-lg hover:bg-gray-800"
+            >
+              <ShoppingBag className="mr-2" />
+              Añadir al carrito
+            </button>
+            <Link
+              to="/productos"
+              className="bg-gray-200 text-gray-800 py-2 px-4 flex items-center rounded-lg hover:bg-gray-300"
+            >
+              <Store className="mr-2" />
+              Seguir comprando
+            </Link>
+          </div>
         </div>
       </div>
 

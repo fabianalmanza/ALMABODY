@@ -120,9 +120,7 @@ const Header = ({ onSearch }) => {
               className="hover:text-gray-300"
               onClick={handleMenuItemClick}
             >
-              <div className="text-2xl font-bold purple-purse-regular">
-                ALMA
-              </div>
+              <div className="text-3xl  custom-font">ALMA</div>
             </Link>
           </div>
 
