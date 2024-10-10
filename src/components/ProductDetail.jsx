@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useCart } from '../CartContext';
-import { products } from './ProductGrid';
+import { useCart } from '../context/CartContext';
+import { useProducts } from '../context/ProductContext'
 import { ShoppingBag, Plus, Minus, Check, Store } from 'lucide-react';
 
 const ProductDetail = () => {
+
+  const products = useProducts();
   const { id } = useParams();
   const { addToCart } = useCart();
   const productId = parseInt(id, 10);
@@ -67,7 +69,7 @@ const ProductDetail = () => {
         <div>
           <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
           <p className="text-xl text-gray-600 mb-4">
-            ${product.price.toFixed(2)}
+            ${product.price}
           </p>
 
           <div className="mb-4">
@@ -94,7 +96,8 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <p className="text-gray-700 mb-4">{product.description}</p>
+          <p className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: product.description }} />
+
 
           {/* Quantity Selector */}
           <div className="flex items-center mb-4">
@@ -176,7 +179,7 @@ const ProductDetail = () => {
                         {relatedProduct.name}
                       </h4>
                       <p className="text-gray-600">
-                        ${relatedProduct.price.toFixed(2)}
+                        ${relatedProduct.price}
                       </p>
                     </Link>
                     <div className="mt-2">

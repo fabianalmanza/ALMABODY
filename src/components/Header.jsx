@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Search, Menu, X } from 'lucide-react';
-import { useCart } from '../CartContext';
+import { useCart } from '../context/CartContext';
 
 const Header = ({ onSearch }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

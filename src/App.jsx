@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import Header from './components/Header';
 import Cart from './components/Cart';
 import Footer from './components/Footer';
 import AppRoutes from './routes';
-import { CartProvider } from './CartContext';
+import { CartProvider } from './context/CartContext';
+import { ProductProvider } from './context/ProductContext';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,6 +18,7 @@ const App = () => {
 
   return (
     <Router>
+        <ProductProvider>
       <CartProvider>
         <div className="min-h-screen bg-gray-50">
           <Header onSearch={handleSearch} />
@@ -53,6 +54,7 @@ const App = () => {
           />
         </div>
       </CartProvider>
+      </ProductProvider>
     </Router>
   );
 };

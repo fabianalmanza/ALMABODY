@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Plus, Minus } from 'lucide-react';
-import { useCart } from '../CartContext';
+import { useCart } from '../context/CartContext';
 
 const Cart = () => {
   const { isCartOpen, toggleCart, cartItems, removeFromCart, updateQuantity } = useCart();
@@ -38,16 +38,16 @@ const Cart = () => {
                     <p>${item.price.toFixed(2)}</p>
                   </div>
                   <div className="flex items-center">
-                    <button 
-                      onClick={() => updateQuantity(item.id, item.selectedColor, (item.quantity || 1) - 1)} 
+                    <button
+                      onClick={() => updateQuantity(item.id, item.selectedColor, (item.quantity || 1) - 1)}
                       className="p-1"
                       disabled={(item.quantity || 1) <= 1} // Desactiva si la cantidad es 1
                     >
                       <Minus size={16} />
                     </button>
                     <span className="mx-2">{item.quantity || 1}</span>
-                    <button 
-                      onClick={() => updateQuantity(item.id, item.selectedColor, (item.quantity || 1) + 1)} 
+                    <button
+                      onClick={() => updateQuantity(item.id, item.selectedColor, (item.quantity || 1) + 1)}
                       className="p-1"
                     >
                       <Plus size={16} />

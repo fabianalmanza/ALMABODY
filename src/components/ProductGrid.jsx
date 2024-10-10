@@ -1,95 +1,12 @@
 import React, { useState } from 'react';
-import { useCart } from '../CartContext';
+import { useCart } from '../context/CartContext';
+import { useProducts } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Check } from 'lucide-react';
 
-export const products = [
-  {
-    id: 1,
-    name: 'Body Margarita',
-    price: 59.99,
-    colors: ['white', 'black'],
-    images: {
-      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: 'https://i.imgur.com/KTqWMDs.jpeg',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
-  },
-  {
-    id: 2,
-    name: 'Body Ana',
-    price: 64.99,
-    colors: ['white', 'black'],
-    images: {
-      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: 'https://i.imgur.com/KTqWMDs.jpeg',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
-  },
-  {
-    id: 3,
-    name: 'Body Julieta',
-    price: 54.99,
-    colors: ['white', 'black'],
-    images: {
-      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: 'https://i.imgur.com/KTqWMDs.jpeg',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
-  },
-  {
-    id: 4,
-    name: 'Body Mango',
-    price: 49.99,
-    colors: ['white', 'black'],
-    images: {
-      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: 'https://i.imgur.com/KTqWMDs.jpeg',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
-  },
-  {
-    id: 5,
-    name: 'Body Rosa',
-    price: 69.99,
-    colors: ['white', 'black'],
-    images: {
-      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: 'https://i.imgur.com/KTqWMDs.jpeg',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
-  },
-  {
-    id: 6,
-    name: 'Body Victoria',
-    price: 74.99,
-    colors: ['white', 'black'],
-    images: {
-      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: 'https://i.imgur.com/KTqWMDs.jpeg',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
-  },
-  {
-    id: 7,
-    name: 'Body Ale',
-    price: 59.99,
-    colors: ['white', 'black'],
-    images: {
-      white: 'https://i.imgur.com/yWJ3E9X.jpeg',
-      black: 'https://i.imgur.com/KTqWMDs.jpeg',
-    },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id ligula auctor, blandit ipsum ac, fermentum nunc.',
-  },
-];
+
 const ProductGrid = ({ searchTerm }) => {
+  const products = useProducts();
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -137,7 +54,7 @@ const ProductCard = ({ product }) => {
             {product.name}
           </h3>
         </Link>
-        <p className="text-gray-600 mb-2">${product.price.toFixed(2)}</p>
+        <p className="text-gray-600 mb-2">${product.price}</p>
 
         <div className="mt-2">
           <p className="text-sm text-gray-600 mb-1">Color</p>
@@ -146,7 +63,7 @@ const ProductCard = ({ product }) => {
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
-                className="w-6 h-6 rounded-full border border-gray-300 relative flex items-center justify-center"
+                className="w-6 h-6 rounded-full border border-gray-400 relative flex items-center justify-center"
                 style={{
                   backgroundColor: color,
                 }}
