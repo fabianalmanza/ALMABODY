@@ -24,12 +24,10 @@ const Header = ({ onSearch }) => {
   useEffect(() => {
     if (isSearchOpen) {
       searchInputRef.current.focus();
-      // Iniciar el temporizador cuando se abre el input (ya que está vacío inicialmente)
       startCloseTimer();
     }
   }, [isSearchOpen]);
 
-  // Función para iniciar el temporizador de cierre
   const startCloseTimer = () => {
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
@@ -53,6 +51,7 @@ const Header = ({ onSearch }) => {
     setIsSearchOpen((prev) => !prev);
     if (!isSearchOpen) {
       setSearchTerm('');
+      onSearch('');
     }
   };
 
@@ -61,18 +60,15 @@ const Header = ({ onSearch }) => {
     setSearchTerm(value);
     onSearch(value);
 
-    // Limpiar cualquier temporizador existente
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
 
-    // Si el valor está vacío, iniciar el temporizador de cierre
     if (value === '') {
       startCloseTimer();
     }
   };
 
-  // Limpiar el timeout cuando el componente se desmonte
   useEffect(() => {
     return () => {
       if (searchTimeoutRef.current) {
@@ -120,7 +116,7 @@ const Header = ({ onSearch }) => {
               className="hover:text-gray-300"
               onClick={handleMenuItemClick}
             >
-              <div className="text-3xl  custom-font">ALMA</div>
+              <div className="text-3xl custom-font">ALMA</div>
             </Link>
           </div>
 

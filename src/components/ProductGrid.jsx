@@ -4,7 +4,6 @@ import { useProducts } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Check } from 'lucide-react';
 
-
 const ProductGrid = ({ searchTerm }) => {
   const products = useProducts();
   const filteredProducts = products.filter((product) =>
@@ -27,6 +26,7 @@ const ProductGrid = ({ searchTerm }) => {
 
 const ProductCard = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addToCart } = useCart();
 
   return (
@@ -34,9 +34,9 @@ const ProductCard = ({ product }) => {
       <div className="relative overflow-hidden">
         <Link to={`/product/${product.id}`}>
           <img
-            src={product.images[selectedColor]}
+            src={product.images[selectedColor][selectedImageIndex]}
             alt={product.name}
-            className="w-full h-48 sm:h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+            className="w-full h-72 sm:h-92 object-cover transition-transform duration-300 group-hover:scale-110"
           />
         </Link>
         <button
@@ -46,6 +46,17 @@ const ProductCard = ({ product }) => {
         >
           <ShoppingBag size={20} />
         </button>
+      </div>
+
+      <div className="flex justify-center mt-2">
+        {product.images[selectedColor].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setSelectedImageIndex(index)}
+            className={`w-2 h-2 rounded-full mx-1 ${selectedImageIndex === index ? 'bg-black' : 'bg-gray-400'}`}
+            aria-label={`Select image ${index + 1}`}
+          />
+        ))}
       </div>
 
       <div className="p-4">
@@ -62,7 +73,10 @@ const ProductCard = ({ product }) => {
             {product.colors.map((color) => (
               <button
                 key={color}
-                onClick={() => setSelectedColor(color)}
+                onClick={() => {
+                  setSelectedColor(color);
+                  setSelectedImageIndex(0);
+                }}
                 className="w-6 h-6 rounded-full border border-gray-400 relative flex items-center justify-center"
                 style={{
                   backgroundColor: color,

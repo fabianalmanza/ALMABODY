@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { useProducts } from '../context/ProductContext'
-import { ShoppingBag, Plus, Minus, Check, Store } from 'lucide-react';
+import { useProducts } from '../context/ProductContext';
+import { ShoppingBag, Plus, Minus, Check, Store, X } from 'lucide-react';
 
 const ProductDetail = () => {
-
   const products = useProducts();
   const { id } = useParams();
   const { addToCart } = useCart();
   const productId = parseInt(id, 10);
   const product = products.find((p) => p.id === productId);
   const [selectedColor, setSelectedColor] = useState(product?.colors[0]);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const slidesToShow = 2;
 
   useEffect(() => {
@@ -55,15 +56,34 @@ const ProductDetail = () => {
     setQuantity(1); // Restablecer la cantidad a 1
   };
 
+  const handleImageClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <img
-            src={product.images[selectedColor]}
+            src={product.images[selectedColor][selectedImageIndex]}
             alt={product.name}
-            className="w-full h-64 md:h-96  object-cover rounded-lg"
+            className="w-full h-72 md:h-[600px] object-cover rounded-lg cursor-pointer"
+            onClick={handleImageClick}
           />
+          <div className="flex justify-center mt-2">
+            {product.images[selectedColor].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedImageIndex(index)}
+                className={`w-2 h-2 rounded-full mx-1 ${selectedImageIndex === index ? 'bg-black' : 'bg-gray-400'}`}
+                aria-label={`Select image ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         <div>
@@ -78,7 +98,10 @@ const ProductDetail = () => {
               {product.colors.map((color) => (
                 <button
                   key={color}
-                  onClick={() => setSelectedColor(color)}
+                  onClick={() => {
+                    setSelectedColor(color);
+                    setSelectedImageIndex(0);
+                  }}
                   className="w-8 h-8 rounded-full border border-gray-300 relative flex items-center justify-center"
                   style={{
                     backgroundColor: color,
@@ -97,7 +120,6 @@ const ProductDetail = () => {
           </div>
 
           <p className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: product.description }} />
-
 
           {/* Quantity Selector */}
           <div className="flex items-center mb-4">
@@ -142,6 +164,26 @@ const ProductDetail = () => {
         </div>
       </div>
 
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="relative">
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-2 right-2 text-white bg-black bg-opacity-50 rounded-full p-1"
+              aria-label="Close"
+            >
+              <X size={24} />
+            </button>
+            <img
+              src={product.images[selectedColor][selectedImageIndex]}
+              alt={product.name}
+              className="w-auto h-125 max-h-screen object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Related Products Carousel */}
       <div className="mt-16">
         <h3 className="text-2xl font-bold mb-4 text-center">
@@ -171,7 +213,7 @@ const ProductDetail = () => {
                       className="block"
                     >
                       <img
-                        src={relatedProduct.images[relatedSelectedColor]}
+                        src={relatedProduct.images[relatedSelectedColor][0]}
                         alt={relatedProduct.name}
                         className="w-full h-28 object-cover rounded-lg"
                       />
