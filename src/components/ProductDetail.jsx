@@ -10,7 +10,7 @@ const ProductDetail = () => {
   const { addToCart } = useCart();
   const productId = parseInt(id, 10);
   const product = products.find((p) => p.id === productId);
-  const [selectedColor, setSelectedColor] = useState(product?.colors[0]);
+  const [selectedColor, setSelectedColor] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -18,11 +18,17 @@ const ProductDetail = () => {
   const slidesToShow = 2;
 
   useEffect(() => {
+    if (product) {
+      setSelectedColor(product.colors[0]);
+    }
+  }, [product]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (!product) {
-    return <p>Product not found!</p>;
+  if (!product || !selectedColor) {
+    return <p>Loading...</p>;
   }
 
   const relatedProducts = products
