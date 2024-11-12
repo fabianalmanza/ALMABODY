@@ -4,12 +4,14 @@ import { useCart } from '../context/CartContext';
 
 const Cart = () => {
   const { isCartOpen, toggleCart, cartItems, removeFromCart, updateQuantity } = useCart();
-  const total = cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+  const total = Math.round(
+    cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0)
+  );
 
   const sendToWhatsApp = () => {
-    const message = `Hello! I'd like to order the following items:\n\n${cartItems
-      .map(item => `${item.name} (${item.selectedColor}) (x${item.quantity || 1}) - $${(item.price * (item.quantity || 1)).toFixed(2)}`)
-      .join('\n')}\n\nTotal: $${total.toFixed(2)}`;
+    const message = `¡Hola! Me gustaría ordenar los siguientes productos:\n\n${cartItems
+      .map(item => `${item.name} (${item.selectedColor}) (x${item.quantity || 1}) - $${Math.round(item.price * (item.quantity || 1))}`)
+      .join('\n')}\n\nTotal: $${total}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/573176599949/?text=${encodedMessage}`, '_blank');
   };
@@ -21,13 +23,13 @@ const Cart = () => {
       <div className="bg-white w-full max-w-md h-full overflow-y-auto">
         <div className="p-4">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Your Cart</h2>
+            <h2 className="text-2xl font-bold">Tu Carrito</h2>
             <button onClick={toggleCart}>
               <X size={24} />
             </button>
           </div>
           {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p>Tu carrito está vacío.</p>
           ) : (
             <>
               {cartItems.map(item => (
@@ -53,18 +55,18 @@ const Cart = () => {
                       <Plus size={16} />
                     </button>
                     <button onClick={() => removeFromCart(item.id, item.selectedColor)} className="ml-4 text-red-500">
-                      Remove
+                      Eliminar
                     </button>
                   </div>
                 </div>
               ))}
               <div className="mt-8">
-                <p className="text-xl font-bold mb-4">Total: ${total.toFixed(2)}</p>
+                <p className="text-xl font-bold mb-4">Total: ${total}</p>
                 <button
                   onClick={sendToWhatsApp}
                   className="w-full bg-green-500 text-white py-2 rounded-full hover:bg-green-600 transition duration-300"
                 >
-                  Send to WhatsApp
+                  Enviar Pedido por WhatsApp
                 </button>
               </div>
             </>
