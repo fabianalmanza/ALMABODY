@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
-import { ShoppingBag, Plus, Minus, Check, Store, X } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Check, Store, X, ArrowBigLeft, ArrowBigRight } from 'lucide-react';
 
 const ProductDetail = () => {
   const products = useProducts();
@@ -64,26 +64,60 @@ const ProductDetail = () => {
     setIsModalOpen(false);
   };
 
+  const handleNextImage = () => {
+    setSelectedImageIndex((prev) =>
+      (prev + 1) % product.images[selectedColor].length
+    );
+  };
+
+  const handlePrevImage = () => {
+    setSelectedImageIndex((prev) =>
+      (prev - 1 + product.images[selectedColor].length) % product.images[selectedColor].length
+    );
+  };
+
   return (
     <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
+        <div className="relative">
           <img
             src={product.images[selectedColor][selectedImageIndex]}
             alt={product.name}
             className="w-full h-72 md:h-[600px] object-cover rounded-lg cursor-pointer"
             onClick={handleImageClick}
+            loading="lazy"
           />
-          <div className="flex justify-center mt-2">
-            {product.images[selectedColor].map((_, index) => (
+          {product.images[selectedColor].length > 1 && (
+            <>
               <button
-                key={index}
-                onClick={() => setSelectedImageIndex(index)}
-                className={`w-2 h-2 rounded-full mx-1 ${selectedImageIndex === index ? 'bg-black' : 'bg-gray-400'}`}
-                aria-label={`Select image ${index + 1}`}
-              />
-            ))}
-          </div>
+                onClick={handlePrevImage}
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition-all duration-300"
+                aria-label="Previous Image"
+              >
+                <ArrowBigLeft size={24} />
+              </button>
+              <button
+                onClick={handleNextImage}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition-all duration-300"
+                aria-label="Next Image"
+              >
+                <ArrowBigRight size={24} />
+              </button>
+            </>
+          )}
+
+          {product.images[selectedColor].length > 1 && (
+            <div className="flex justify-center mt-2">
+              {product.images[selectedColor].map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImageIndex(index)}
+                  className={`w-2 h-2 rounded-full mx-1 ${selectedImageIndex === index ? 'bg-black' : 'bg-gray-400'}`}
+                  aria-label={`Select image ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div>
@@ -179,6 +213,7 @@ const ProductDetail = () => {
               src={product.images[selectedColor][selectedImageIndex]}
               alt={product.name}
               className="w-auto h-125 max-h-screen object-cover rounded-lg"
+              loading="lazy"
             />
           </div>
         </div>
@@ -216,6 +251,7 @@ const ProductDetail = () => {
                         src={relatedProduct.images[relatedSelectedColor][0]}
                         alt={relatedProduct.name}
                         className="w-full h-28 object-cover rounded-lg"
+                        loading="lazy"
                       />
                       <h4 className="text-lg font-semibold mt-2">
                         {relatedProduct.name}

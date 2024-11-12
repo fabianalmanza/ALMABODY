@@ -37,6 +37,7 @@ const ProductCard = ({ product }) => {
             src={product.images[selectedColor][selectedImageIndex]}
             alt={product.name}
             className="w-full h-72 sm:h-92 object-cover transition-transform duration-300 group-hover:scale-110"
+            loading="lazy"
           />
         </Link>
         <button
