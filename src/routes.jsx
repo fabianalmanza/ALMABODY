@@ -8,7 +8,7 @@ import ProductDetail from './components/ProductDetail';
 import Productos from './components/Productos';
 import InstagramFeed from './components/InstagramFeed'; // Asegúrate de importar el componente
 
-const AppRoutes = ({ addToCart, searchTerm }) => {
+const AppRoutes = () => {
   return (
     <Routes>
       <Route
@@ -16,17 +16,13 @@ const AppRoutes = ({ addToCart, searchTerm }) => {
         element={
           <>
             <Hero />
-            <ProductGrid addToCart={addToCart} searchTerm={searchTerm} />
-            <InstagramFeed />{' '}
-            {/* Aquí está el InstagramFeed solo para la ruta raíz */}
+            <ProductGrid />
+            <InstagramFeed />
           </>
         }
       />
       <Route path="/catalog" element={<Catalog />} />
-      <Route
-        path="/product/:id"
-        element={<ProductDetail addToCart={addToCart} />}
-      />
+      <Route path="/product/:id" element={<ProductDetail />} />
       <Route path="/productos" element={<Productos />} />
     </Routes>
   );

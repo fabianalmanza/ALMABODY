@@ -1,28 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
-import { ShoppingBag, Plus, Minus, Check, Store, X, ArrowBigLeft, ArrowBigRight } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Check, Store, X, ArrowBigLeft, ArrowBigRight, ZoomIn } from 'lucide-react';
+import RelatedProduct from './RelatedProduct';
 
 const ProductDetail = () => {
-  const products = useProducts();
+  const { products, loading } = useProducts();
   const { id } = useParams();
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const productId = parseInt(id, 10);
-  const product = products.find((p) => p.id === productId);
-  const [selectedColor, setSelectedColor] = useState(product?.colors[0]);
+  
+  const slidesToShow = 2;
+  
+  // Estados
+  const [selectedColor, setSelectedColor] = useState('');
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const slidesToShow = 2;
+  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
+  const [isSwiping, setIsSwiping] = useState(false);
+  const imageRef = useRef(null);
 
+  // Encontrar el producto
+  const product = products.find((p) => p.id === productId);
+
+  // Efecto para inicializar el color seleccionado
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (product && product.colors && product.colors.length > 0) {
+      setSelectedColor(product.colors[0]);
+      setSelectedImageIndex(0);
+    }
+  }, [product]);
 
+  // Loading state
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  // Product not found
   if (!product) {
-    return <p>Product not found!</p>;
+    return (
+      <div className="container mx-auto py-16 px-4 text-center">
+        <h2 className="text-2xl font-bold mb-4">Producto no encontrado</h2>
+        <button
+          onClick={() => navigate('/productos')}
+          className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800"
+        >
+          Volver a productos
+        </button>
+      </div>
+    );
+  }
+
+  // Verificar que selectedColor esté definido
+  if (!selectedColor) {
+    return null; // O mostrar un loading spinner
   }
 
   const relatedProducts = products
@@ -76,17 +115,69 @@ const ProductDetail = () => {
     );
   };
 
+  const handleTouchStart = (e) => {
+    setIsSwiping(true);
+    setTouchStart({
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY
+    });
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isSwiping) return;
+    
+    const currentX = e.touches[0].clientX;
+    const diffX = touchStart.x - currentX;
+    
+    if (Math.abs(diffX) > 10) {
+      // Opcional: agregar alguna lógica adicional si es necesario
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isSwiping) return;
+
+    const endX = e.changedTouches[0].clientX;
+    const diffX = touchStart.x - endX;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(diffX) > minSwipeDistance) {
+      if (diffX > 0) {
+        // Swipe izquierda - siguiente imagen
+        handleNextImage();
+      } else {
+        // Swipe derecha - imagen anterior
+        handlePrevImage();
+      }
+    }
+
+    setIsSwiping(false);
+  };
+
   return (
     <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="relative">
+        <div 
+          className="relative touch-pan-y"
+          ref={imageRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <img
+            ref={imageRef}
             src={product.images[selectedColor][selectedImageIndex]}
             alt={product.name}
-            className="w-full h-72 md:h-[600px] object-cover rounded-lg cursor-pointer"
+            className="w-full h-[60vh] md:h-[80vh] object-cover rounded-lg cursor-pointer select-none"
             onClick={handleImageClick}
-            loading="lazy"
+            draggable="false"
           />
+          <div 
+            className="absolute top-2 right-2 text-white cursor-pointer"
+            onClick={handleImageClick}
+          >
+            <ZoomIn size={24} className="drop-shadow-lg hover:scale-110 transition-transform" />
+          </div>
           {product.images[selectedColor].length > 1 && (
             <>
               <button
@@ -222,15 +313,15 @@ const ProductDetail = () => {
       {/* Related Products Carousel */}
       <div className="mt-16">
         <h3 className="text-2xl font-bold mb-4 text-center">
-          Related Products
+          Productos Relacionados
         </h3>
-
         <div className="max-w-4xl mx-auto relative">
           <button
             onClick={handlePrev}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded"
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-black transition-colors z-10"
+            aria-label="Previous"
           >
-            &#60;
+            <ArrowBigLeft size={24} />
           </button>
           <div className="flex overflow-hidden">
             {relatedProducts
@@ -238,63 +329,16 @@ const ProductDetail = () => {
                 currentSlide * slidesToShow,
                 currentSlide * slidesToShow + slidesToShow
               )
-              .map((relatedProduct) => {
-                const [relatedSelectedColor, setRelatedSelectedColor] =
-                  useState(relatedProduct.colors[0]);
-                return (
-                  <div key={relatedProduct.id} className="p-2 w-1/2">
-                    <Link
-                      to={`/product/${relatedProduct.id}`}
-                      className="block"
-                    >
-                      <img
-                        src={relatedProduct.images[relatedSelectedColor][0]}
-                        alt={relatedProduct.name}
-                        className="w-full h-28 object-cover rounded-lg"
-                        loading="lazy"
-                      />
-                      <h4 className="text-lg font-semibold mt-2">
-                        {relatedProduct.name}
-                      </h4>
-                      <p className="text-gray-600">
-                        ${relatedProduct.price}
-                      </p>
-                    </Link>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-600 mb-1">Color</p>
-                      <div className="flex gap-2">
-                        {relatedProduct.colors.map((color) => (
-                          <button
-                            key={color}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setRelatedSelectedColor(color);
-                            }}
-                            className="w-6 h-6 rounded-full border border-gray-300 relative flex items-center justify-center"
-                            style={{
-                              backgroundColor: color,
-                            }}
-                            aria-label={`Select ${color} color`}
-                          >
-                            {relatedSelectedColor === color && (
-                              <Check
-                                size={14}
-                                className='text-gray-400'
-                              />
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              .map((relatedProduct) => (
+                <RelatedProduct key={relatedProduct.id} product={relatedProduct} />
+              ))}
           </div>
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-black transition-colors z-10"
+            aria-label="Next"
           >
-            &#62;
+            <ArrowBigRight size={24} />
           </button>
         </div>
       </div>

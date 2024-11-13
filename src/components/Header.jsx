@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Search, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
-const Header = ({ onSearch }) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const { cartItemCount, toggleCart } = useCart();
   const searchInputRef = useRef(null);
   const searchTimeoutRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let timer;
@@ -51,14 +52,14 @@ const Header = ({ onSearch }) => {
     setIsSearchOpen((prev) => !prev);
     if (!isSearchOpen) {
       setSearchTerm('');
-      onSearch('');
+      navigate(`/?search=${searchTerm}`);
     }
   };
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    onSearch(value);
+    navigate(`/?search=${value}`);
 
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);

@@ -3,7 +3,7 @@ import { X, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const Cart = () => {
-  const { isCartOpen, toggleCart, cartItems, removeFromCart, updateQuantity } = useCart();
+  const { isCartOpen, toggleCart, cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
   const total = Math.round(
     cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0)
   );
@@ -64,9 +64,15 @@ const Cart = () => {
                 <p className="text-xl font-bold mb-4">Total: ${total}</p>
                 <button
                   onClick={sendToWhatsApp}
-                  className="w-full bg-green-500 text-white py-2 rounded-full hover:bg-green-600 transition duration-300"
+                  className="w-full bg-green-500 text-white py-2 rounded-full hover:bg-green-600 transition duration-300 mb-2"
                 >
                   Enviar Pedido por WhatsApp
+                </button>
+                <button
+                  onClick={clearCart}
+                  className="w-full bg-red-500 text-white py-2 rounded-full hover:bg-red-600 transition duration-300"
+                >
+                  Vaciar Carrito
                 </button>
               </div>
             </>

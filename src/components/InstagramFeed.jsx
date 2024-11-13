@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ArrowBigLeft, ArrowBigRight } from 'lucide-react';
 
 const InstagramFeed = () => {
   const [posts, setPosts] = useState([]);
@@ -99,17 +100,17 @@ const InstagramFeed = () => {
           </div>
           <button
             onClick={prevSlide}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 transition-all duration-300 focus:outline-none z-10"
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition-all duration-300"
             disabled={currentIndex === 0}
           >
-            ←
+            <ArrowBigLeft size={24} />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 transition-all duration-300 focus:outline-none z-10"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition-all duration-300"
             disabled={currentIndex === posts.length - limit}
           >
-            →
+            <ArrowBigRight size={24} />
           </button>
         </div>
         <div className="text-center mt-8">

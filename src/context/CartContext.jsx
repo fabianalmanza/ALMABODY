@@ -60,6 +60,11 @@ export const CartProvider = ({ children }) => {
     0
   );
 
+  const clearCart = () => {
+    setCartItems([]);
+    toast.dark('Carrito vaciado'); // Notificación al vaciar el carrito
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -70,6 +75,7 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         toggleCart,
         cartItemCount,
+        clearCart,
       }}
     >
       {children}
