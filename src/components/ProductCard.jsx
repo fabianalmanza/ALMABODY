@@ -55,7 +55,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="mt-4">
           <h3 className="text-lg font-semibold">{product.name}</h3>
-          <p className="text-gray-600">${product.price.toFixed(2)}</p>
+          <p className="text-gray-600">${Math.round(product.price)}</p>
         </div>
       </Link>
       <div className="mt-2">
